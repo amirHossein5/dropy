@@ -68,3 +68,5 @@ if you want to on first load target be open add attribute ```data-is-open```:
 
 
 ## Licence
+
+[LICENCE](https://github.com/amirHossein5/dropy/blob/main/LICENCE)
