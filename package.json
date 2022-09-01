@@ -1,0 +1,16 @@
+{
+  "name": "@amirHossein5/dropy",
+  "version": "1.0.0",
+  "description": "Small package for togglling everything on everywhere.",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "esbuild builds/cdn.js --bundle --outfile=dist/cdn.js; esbuild builds/cdn.js --minify --bundle --outfile=dist/cdn.min.js;",
+    "watch": "esbuild builds/cdn.js --watch --bundle --outfile=dist/cdn.js;",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "adada5116@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "^0.15.6"
+  }
+}
