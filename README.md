@@ -4,10 +4,12 @@ Small package for togglling everything on everywhere.
 
 ### CDN
 ```html
-<script src="//unpkg.com/@amirhossein5/dropy"></script>
+<script src="https://unpkg.com/@amirhossein5/dropy"></script>
 
 <script>
-    dropy('[toggler]');
+    document.addEventListener('DOMContentLoaded', () => {
+        dropy('[toggler]');
+    });
 </script>
 ```
 
@@ -27,7 +29,7 @@ window.dropy = dropy;
 
 ## Usage
 
-There are two ways to define the target first append ```toggler-target``` attribute that is sibling of toggler:
+There are two ways to define the target, first: append ```toggler-target``` attribute on the sibling of toggler,
 ```html
 <section>
     <button toggler>toggle it!</button>
@@ -44,11 +46,18 @@ Or you can specify target via ```data-target```:
 <section id="target">will be toggle</section>
 ```
 
+if you want to on first load target be open add attribute ```data-is-open```:
+
+```html
+<button toggler data-is-open="true">toggle it!</button>
+```
+
+
 ## Options
 ```js
     dropy(togglerSelector, {
-        onOpen: (target) => ..., // opening target is on your bare
-        onClose: (target) => ..., // closing target is on your bare
+        onOpen: (target, toggler) => ..., // opening target is your responsible
+        onClose: (target, toggler) => ..., // closing target is your responsible
         closeOnClickOut: true,
         closeOnAnotherTogglerClicked: true
     });
