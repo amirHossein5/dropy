@@ -4,7 +4,7 @@ Small package for togglling everything on everywhere.
 
 ### CDN
 ```html
-<script src="\\unpkg.com/dropy"></script>
+<script src="//unpkg.com/@amirhossein5/dropy"></script>
 
 <script>
     dropy('[toggler]');
@@ -13,12 +13,12 @@ Small package for togglling everything on everywhere.
 
 ### npm
 ```sh
-npm i dropy
+npm i @amirhossein5/dropy
 ```
 
 And in js file:
 ```js
-import dropy from 'dropy';
+import dropy from '@amirhossein5/dropy';
 
 dropy('[toggler]');
 // or

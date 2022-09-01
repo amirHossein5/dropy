@@ -1,8 +1,9 @@
 {
-  "name": "@amirHossein5/dropy",
+  "name": "@amirhossein5/dropy",
   "version": "1.0.0",
   "description": "Small package for togglling everything on everywhere.",
   "main": "src/index.js",
+  "unpkg": "dist/cdn.min.js",
   "scripts": {
     "build": "esbuild builds/cdn.js --bundle --outfile=dist/cdn.js; esbuild builds/cdn.js --minify --bundle --outfile=dist/cdn.min.js;",
     "watch": "esbuild builds/cdn.js --watch --bundle --outfile=dist/cdn.js;",
