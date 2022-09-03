@@ -4,7 +4,7 @@ Small package for togglling everything on everywhere.
 
 ### CDN
 ```html
-<script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy@latest/dist/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy@latest/dist/cdn.min.js" defer></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
