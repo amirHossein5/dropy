@@ -4,27 +4,13 @@ Small package for togglling everything on everywhere.
 
 ### CDN
 ```html
-<script src="https://unpkg.com/@amirhossein5/dropy"></script>
+<script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy@latest/dist/cdn.min.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         dropy('[toggler]');
     });
 </script>
-```
-
-### npm
-```sh
-npm i @amirhossein5/dropy
-```
-
-And in js file:
-```js
-import dropy from '@amirhossein5/dropy';
-
-dropy('[toggler]');
-// or
-window.dropy = dropy;
 ```
 
 ## Usage
