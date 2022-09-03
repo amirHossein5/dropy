@@ -2,7 +2,6 @@
   "name": "@amirhossein5/dropy",
   "description": "Small package for togglling everything on everywhere.",
   "main": "src/index.js",
-  "jsdelivr": "dist/cdn.min.js",
   "repository": "https://github.com/amirHossein5/dropy.git",
   "scripts": {
     "build": "esbuild builds/cdn.js --bundle --outfile=dist/cdn.js; esbuild builds/cdn.js --minify --bundle --outfile=dist/cdn.min.js;",
