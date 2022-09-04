@@ -133,9 +133,7 @@ function open (toggler, target, closure) {
  */
 function close (toggler, target, closure) {
     if (target.length !== 0) {
-        console.log("before " +$.data(toggler, 'is-open'));
         $.data(toggler, 'is-open', false);
-        console.log(toggler);
 
         closure
             ? closure(target, toggler)
