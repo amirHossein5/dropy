@@ -1,5 +1,8 @@
 (() => {
   // src/helpers.js
+  function selectorAll(selector) {
+    return document.querySelectorAll(selector);
+  }
   function siblings(e, filterSelector = null) {
     let parent = e.parentElement;
     if (!e.parentNode) {
@@ -29,31 +32,30 @@
   // src/dropy.js
   function dropy(togglerSelector, optionsParam) {
     let options = setUp(optionsParam);
-    let allTogglers = [...document.querySelectorAll(togglerSelector)];
+    let allTogglers = [...selectorAll(togglerSelector)];
     let allTargets = [];
     allTogglers.forEach((toggler) => {
       let target = getTargetsOf(toggler);
       allTargets = [...allTargets, ...getTargetsOf(toggler)];
       data(toggler, "is-open") === true ? data(toggler, "is-open", true) : data(toggler, "is-open", false);
-      data(toggler, "is-open") ? open(toggler, target, options?.onOpen) : close(toggler, target, options?.onClose);
+      init(toggler, target, options?.onInit);
       toggler.addEventListener("click", (e) => {
         let toggler2 = e.currentTarget;
         let target2 = getTargetsOf(toggler2);
-        if (options.closeOnAnotherTogglerClicked) {
-          allTogglers.filter((i) => i !== toggler2).forEach((toggler3) => close(toggler3, allTargets, options?.onClose));
+        if (options.closeOnAnotherTogglerClicked && !data(toggler2, "is-open")) {
+          allTogglers.filter((i) => i !== toggler2 && data(i, "is-open")).forEach((toggler3) => close(toggler3, allTargets, options?.onClose));
         }
         data(toggler2, "is-open") ? close(toggler2, target2, options?.onClose) : open(toggler2, target2, options?.onOpen);
       });
     });
-    if (options.closeOnClickOut !== true) {
-      return;
+    if (options.closeOnClickOut === true) {
+      document.addEventListener("click", (e) => {
+        let wantedList = [...allTogglers, ...allTargets];
+        if ([...parents(e.target), e.target].filter((i) => wantedList.includes(i)).length === 0) {
+          allTogglers.filter((toggler) => data(toggler, "is-open")).forEach((toggler) => close(toggler, allTargets, options?.onClose));
+        }
+      });
     }
-    document.addEventListener("click", (e) => {
-      let wantedList = [...allTogglers, ...allTargets];
-      if ([...parents(e.target), e.target].filter((i) => wantedList.includes(i)).length === 0) {
-        allTogglers.forEach((toggler) => close(toggler, allTargets, options?.onClose));
-      }
-    });
   }
   function setUp(options) {
     return {
@@ -63,15 +65,24 @@
     };
   }
   function getTargetsOf(toggler) {
-    return data(toggler, "target") ? document.querySelectorAll(data(toggler, "target")) : siblings(toggler, "[toggler-target]");
+    return data(toggler, "target") ? selectorAll(data(toggler, "target")) : siblings(toggler, "[toggler-target]");
+  }
+  function init(toggler, target, closure) {
+    closure ? closure(target, toggler) : data(toggler, "is-open") ? target.forEach((target2) => target2.style.display = "block") : target.forEach((target2) => target2.style.display = "none");
   }
   function open(toggler, target, closure) {
-    data(toggler, "is-open", true);
-    closure ? closure(target, toggler) : target.forEach((target2) => target2.style.display = "block");
+    if (target.length !== 0) {
+      data(toggler, "is-open", true);
+      closure ? closure(target, toggler) : target.forEach((target2) => target2.style.display = "block");
+    }
   }
   function close(toggler, target, closure) {
-    data(toggler, "is-open", false);
-    closure ? closure(target, toggler) : target.forEach((target2) => target2.style.display = "none");
+    if (target.length !== 0) {
+      console.log("before " + data(toggler, "is-open"));
+      data(toggler, "is-open", false);
+      console.log(toggler);
+      closure ? closure(target, toggler) : target.forEach((target2) => target2.style.display = "none");
+    }
   }
 
   // builds/cdn.js
