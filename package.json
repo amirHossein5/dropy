@@ -4,8 +4,8 @@
   "main": "src/index.js",
   "repository": "https://github.com/amirHossein5/dropy.git",
   "scripts": {
-    "build": "esbuild builds/cdn.js --bundle --outfile=dist/cdn.js; esbuild builds/cdn.js --minify --bundle --outfile=dist/cdn.min.js;",
-    "watch": "esbuild builds/cdn.js --watch --bundle --outfile=dist/cdn.js;",
+    "build": "node scripts/builds.js",
+    "watch": "node scripts/builds.js --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "adada5116@gmail.com",

@@ -4,8 +4,14 @@ Small package for togglling everything on everywhere.
 
 ### CDN
 ```html
+<script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy/dist/dropy.min.js"></script>
+```
+CDN that includes all of the modules(e.g, events):
+```html
 <script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy/dist/cdn.min.js"></script>
+```
 
+```html
 <script>
     dropy('[toggler]');
 </script>
@@ -55,6 +61,10 @@ dropy options and their defaults:
 
 
 ## Events
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy/dist/dropyListeners.min.js"></script>
+```
 
 Event `dropy.open` for opening, and `dropy.close` for closing targets:
 
