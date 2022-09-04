@@ -60,13 +60,13 @@ Event `dropy.open` for opening, and `dropy.close` for closing targets:
 
 ```js
 document.dispatchEvent(new CustomEvent('dropy.open', {
-    detail : {
+    detail: {
         togglerSelector: ".example[toggler]"
     }
 }));
 
 document.dispatchEvent(new CustomEvent('dropy.close', {
-    detail : {
+    detail: {
         togglerSelector: ".example[toggler]"
     }
 }));
@@ -76,14 +76,14 @@ Also you can close or open it yourself via `open` and `close` functions:
 
 ```js
 document.dispatchEvent(new CustomEvent('dropy.open', {
-    detail : {
+    detail: {
         open: (target, toggler) => {},
         togglerSelector: ".example[toggler]"
     }
 }));
 
 document.dispatchEvent(new CustomEvent('dropy.close', {
-    detail : {
+    detail: {
         close: (target, toggler) => {},
         togglerSelector: ".example[toggler]"
     }
