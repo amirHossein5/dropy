@@ -78,9 +78,7 @@
   }
   function close(toggler, target, closure) {
     if (target.length !== 0) {
-      console.log("before " + data(toggler, "is-open"));
       data(toggler, "is-open", false);
-      console.log(toggler);
       closure ? closure(target, toggler) : target.forEach((target2) => target2.style.display = "none");
     }
   }
