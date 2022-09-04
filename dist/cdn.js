@@ -57,6 +57,18 @@
       });
     }
   }
+  function dropyListeners() {
+    document.addEventListener("dropy.open", (e) => {
+      [...selectorAll(e.detail.togglerSelector)].forEach((toggler) => {
+        !data(toggler, "is-open") && open(toggler, getTargetsOf(toggler), e.detail?.open);
+      });
+    });
+    document.addEventListener("dropy.close", (e) => {
+      [...selectorAll(e.detail.togglerSelector)].forEach((toggler) => {
+        data(toggler, "is-open") && close(toggler, getTargetsOf(toggler), e.detail?.close);
+      });
+    });
+  }
   function setUp(options) {
     return {
       closeOnClickOut: true,
@@ -84,5 +96,6 @@
   }
 
   // builds/cdn.js
+  dropyListeners();
   window.dropy = dropy;
 })();
