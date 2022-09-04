@@ -1,4 +1,13 @@
 /**
+ * Alias for querySelectorAll.
+ * @param  {string} selector
+ * @return {NodeList}
+ */
+export function selectorAll (selector) {
+    return document.querySelectorAll(selector);
+}
+
+/**
  * Returns siblings of HTMLElement.
  * @param  {HTMLElement} e
  * @param  {null|string} filterSelector
