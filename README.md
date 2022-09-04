@@ -10,7 +10,7 @@ CDN that includes all of the modules(e.g, events):
 ```html
 <script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy/dist/cdn.min.js"></script>
 ```
-
+Finally:
 ```html
 <script>
     dropy('[toggler]');
