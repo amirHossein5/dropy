@@ -99,9 +99,11 @@ function getTargetsOf(toggler) {
  * @return {null}
  */
 function init(toggler, target, closure) {
+    let isOpen = $.data(toggler, 'is-open');
+
     closure
-        ? closure(target, toggler)
-        : $.data(toggler, 'is-open')
+        ? closure(target, toggler, isOpen)
+        : isOpen
         ? target.forEach((target) => (target.style.display = 'block'))
         : target.forEach((target) => (target.style.display = 'none'));
 }

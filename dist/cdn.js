@@ -80,7 +80,8 @@
     return data(toggler, "target") ? selectorAll(data(toggler, "target")) : siblings(toggler, "[toggler-target]");
   }
   function init(toggler, target, closure) {
-    closure ? closure(target, toggler) : data(toggler, "is-open") ? target.forEach((target2) => target2.style.display = "block") : target.forEach((target2) => target2.style.display = "none");
+    let isOpen = data(toggler, "is-open");
+    closure ? closure(target, toggler, isOpen) : isOpen ? target.forEach((target2) => target2.style.display = "block") : target.forEach((target2) => target2.style.display = "none");
   }
   function open(toggler, target, closure) {
     if (target.length !== 0) {

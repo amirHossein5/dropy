@@ -59,7 +59,7 @@ dropy options and their defaults:
 
 ```js
 dropy(togglerSelector, {
-    onInit: (target, toggler) => {},
+    onInit: (target, toggler, isOpen) => {},
     onOpen: (target, toggler) => {}, // opening target is your responsible
     onClose: (target, toggler) => {}, // closing target is your responsible
     closeOnClickOut: true,
