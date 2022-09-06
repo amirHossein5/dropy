@@ -69,6 +69,8 @@ dropy(togglerSelector, {
 
 ## Events
 
+If you didn't include all modules:
+
 ```html
 <script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy/dist/dropyListeners.min.js"></script>
 ```
