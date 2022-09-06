@@ -1,5 +1,9 @@
 Small package for togglling everything on everywhere.
 
+<br/>
+
+*This README may has something unreleased.* [See last release Docs](https://github.com/amirHossein5/dropy/tree/v1.2.0)
+
 ## Installation
 
 ### CDN
