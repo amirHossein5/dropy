@@ -8,9 +8,9 @@
     if (!e.parentNode) {
       return [];
     }
-    return [
-      ...filterSelector ? parent.querySelectorAll(filterSelector) : parent.children
-    ].filter((c) => c !== e && Object.values(parent.children).includes(c));
+    return [...filterSelector ? parent.querySelectorAll(filterSelector) : parent.children].filter(
+      (c) => c !== e && Object.values(parent.children).includes(c)
+    );
   }
   function data(element, dataAttrName, value = null) {
     let attribute = `data-${dataAttrName}`;

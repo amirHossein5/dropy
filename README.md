@@ -3,14 +3,19 @@ Small package for togglling everything on everywhere.
 ## Installation
 
 ### CDN
+
 ```html
 <script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy/dist/dropy.min.js"></script>
 ```
+
 CDN that includes all of the modules(e.g, events):
+
 ```html
 <script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy/dist/cdn.min.js"></script>
 ```
+
 Finally:
+
 ```html
 <script>
     dropy('[toggler]');
@@ -19,7 +24,8 @@ Finally:
 
 ## Usage
 
-There are two ways to define the target, first: append ```toggler-target``` attribute on the sibling of toggler,
+There are two ways to define the target, first: append `toggler-target` attribute on the sibling of toggler,
+
 ```html
 <section>
     <button toggler>toggle it!</button>
@@ -27,7 +33,8 @@ There are two ways to define the target, first: append ```toggler-target``` attr
 </section>
 ```
 
-Or you can specify target via ```data-target```:
+Or you can specify target via `data-target`:
+
 ```html
 <section>
     <button toggler data-target="#target">toggle it!</button>
@@ -36,29 +43,29 @@ Or you can specify target via ```data-target```:
 <section id="target">will be toggle</section>
 ```
 
-if you want to on first load target be open add attribute ```data-is-open```:
+if you want to on first load target be open add attribute `data-is-open`:
 
 ```html
 <button toggler data-is-open="true">toggle it!</button>
 ```
 
-
 ## Options
+
 dropy options and their defaults:
+
 ```js
-    dropy(togglerSelector, {
-        onInit: (target, toggler) => {},  
-        onOpen: (target, toggler) => {}, // opening target is your responsible
-        onClose: (target, toggler) => {}, // closing target is your responsible
-        closeOnClickOut: true,
-        closeOnAnotherTogglerClicked: true,
-    });
+dropy(togglerSelector, {
+    onInit: (target, toggler) => {},
+    onOpen: (target, toggler) => {}, // opening target is your responsible
+    onClose: (target, toggler) => {}, // closing target is your responsible
+    closeOnClickOut: true,
+    closeOnAnotherTogglerClicked: true,
+});
 ```
 
-- `onInit`: By default it will close/open target based on `data-is-open` on first load.
-- ```closeOnClickOut```: when clicked out closes the target.
-- ```closeOnAnotherTogglerClicked```: closes the target when another ***related toggler***(with same toggler selector) wants to be open.
-
+-   `onInit`: By default it will close/open target based on `data-is-open` on first load.
+-   `closeOnClickOut`: when clicked out closes the target.
+-   `closeOnAnotherTogglerClicked`: closes the target when another **_related toggler_**(with same toggler selector) wants to be open.
 
 ## Events
 
@@ -69,38 +76,44 @@ dropy options and their defaults:
 Event `dropy.open` for opening, and `dropy.close` for closing targets:
 
 ```js
-document.dispatchEvent(new CustomEvent('dropy.open', {
-    detail: {
-        togglerSelector: ".example[toggler]"
-    }
-}));
+document.dispatchEvent(
+    new CustomEvent('dropy.open', {
+        detail: {
+            togglerSelector: '.example[toggler]',
+        },
+    })
+);
 
-document.dispatchEvent(new CustomEvent('dropy.close', {
-    detail: {
-        togglerSelector: ".example[toggler]"
-    }
-}));
+document.dispatchEvent(
+    new CustomEvent('dropy.close', {
+        detail: {
+            togglerSelector: '.example[toggler]',
+        },
+    })
+);
 ```
 
 Also you can close or open it yourself via `open` and `close` functions:
 
 ```js
-document.dispatchEvent(new CustomEvent('dropy.open', {
-    detail: {
-        open: (target, toggler) => {},
-        togglerSelector: ".example[toggler]"
-    }
-}));
+document.dispatchEvent(
+    new CustomEvent('dropy.open', {
+        detail: {
+            open: (target, toggler) => {},
+            togglerSelector: '.example[toggler]',
+        },
+    })
+);
 
-document.dispatchEvent(new CustomEvent('dropy.close', {
-    detail: {
-        close: (target, toggler) => {},
-        togglerSelector: ".example[toggler]"
-    }
-}));
+document.dispatchEvent(
+    new CustomEvent('dropy.close', {
+        detail: {
+            close: (target, toggler) => {},
+            togglerSelector: '.example[toggler]',
+        },
+    })
+);
 ```
-
-
 
 ## Licence
 

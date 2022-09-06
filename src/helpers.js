@@ -3,7 +3,7 @@
  * @param  {string} selector
  * @return {NodeList}
  */
-export function selectorAll (selector) {
+export function selectorAll(selector) {
     return document.querySelectorAll(selector);
 }
 
@@ -13,19 +13,17 @@ export function selectorAll (selector) {
  * @param  {null|string} filterSelector
  * @return {array|NodeList}
  */
-export function siblings (e, filterSelector = null) {
+export function siblings(e, filterSelector = null) {
     let parent = e.parentElement;
 
-    if(!e.parentNode) {
+    if (!e.parentNode) {
         return [];
     }
 
-    return [
-        ... filterSelector
-            ? parent.querySelectorAll(filterSelector)
-            : parent.children
-    ].filter(c => c !== e && Object.values(parent.children).includes(c));
-};
+    return [...(filterSelector ? parent.querySelectorAll(filterSelector) : parent.children)].filter(
+        (c) => c !== e && Object.values(parent.children).includes(c)
+    );
+}
 
 /**
  * Set\Get data attributes.
@@ -37,14 +35,14 @@ export function siblings (e, filterSelector = null) {
 export function data(element, dataAttrName, value = null) {
     let attribute = `data-${dataAttrName}`;
 
-    if(value !== null) {
+    if (value !== null) {
         return element.setAttribute(attribute, value);
     }
 
     let attValue = element.getAttribute(attribute);
 
-    attValue === 'true' ? attValue = true : null;
-    attValue === 'false' ? attValue = false : null;
+    attValue === 'true' ? (attValue = true) : null;
+    attValue === 'false' ? (attValue = false) : null;
 
     return attValue;
 }
@@ -57,7 +55,7 @@ export function data(element, dataAttrName, value = null) {
  */
 export function parents(element, filter = null) {
     return element.parentElement
-        ? [ parentsInner(element.parentElement), element ].flat().filter(i => i && i !== element)
+        ? [parentsInner(element.parentElement), element].flat().filter((i) => i && i !== element)
         : [];
 }
 
@@ -68,7 +66,5 @@ export function parents(element, filter = null) {
  * @return {array|null}
  */
 export function parentsInner(element, filter = null) {
-    return element.parentElement
-        ? [parentsInner(element.parentElement), element].flat()
-        : null;
+    return element.parentElement ? [parentsInner(element.parentElement), element].flat() : null;
 }

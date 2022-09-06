@@ -1,4 +1,4 @@
-import dropy, {dropyListeners} from './dropy';
+import dropy, { dropyListeners } from './dropy';
 
 export default dropy;
-export {dropyListeners};
+export { dropyListeners };
