@@ -46,21 +46,21 @@
       allTargets = [...allTargets, ...getTargetsOf(toggler)];
       data(toggler, "is-open") === true ? data(toggler, "is-open", true) : data(toggler, "is-open", false);
       setDataByScreens(toggler);
-      init(toggler, target, options?.onInit);
+      init(toggler, target, options?.onInit, options?.inited);
       toggler.addEventListener("click", (e) => {
         let toggler2 = e.currentTarget;
         let target2 = getTargetsOf(toggler2);
         if (options.closeOnAnotherTogglerClicked && !data(toggler2, "is-open")) {
-          allTogglers.filter((i) => i !== toggler2 && data(i, "is-open")).forEach((toggler3) => close(toggler3, allTargets, options?.onClose));
+          allTogglers.filter((i) => i !== toggler2 && data(i, "is-open")).forEach((toggler3) => close(toggler3, allTargets, options?.onClose, options?.closed));
         }
-        data(toggler2, "is-open") ? close(toggler2, target2, options?.onClose) : open(toggler2, target2, options?.onOpen);
+        data(toggler2, "is-open") ? close(toggler2, target2, options?.onClose, options?.closed) : open(toggler2, target2, options?.onOpen, options?.opened);
       });
     });
     if (options.closeOnClickOut === true) {
       document.addEventListener("click", (e) => {
         let wantedList = [...allTogglers, ...allTargets];
         if ([...parents(e.target), e.target].filter((i) => wantedList.includes(i)).length === 0) {
-          allTogglers.filter((toggler) => data(toggler, "is-open")).forEach((toggler) => close(toggler, allTargets, options?.onClose));
+          allTogglers.filter((toggler) => data(toggler, "is-open")).forEach((toggler) => close(toggler, allTargets, options?.onClose, options?.closed));
         }
       });
     }
@@ -87,20 +87,23 @@
   function getTargetsOf(toggler) {
     return data(toggler, "target") ? selectorAll(data(toggler, "target")) : siblings(toggler, "[toggler-target]");
   }
-  function init(toggler, target, closure) {
+  function init(toggler, target, onInit, inited) {
     let isOpen = data(toggler, "is-open");
-    closure ? closure(target, toggler, isOpen) : isOpen ? target.forEach((target2) => target2.style.display = "block") : target.forEach((target2) => target2.style.display = "none");
+    onInit ? onInit(target, toggler, isOpen) : isOpen ? target.forEach((target2) => target2.style.display = "block") : target.forEach((target2) => target2.style.display = "none");
+    inited && inited(target, toggler, isOpen);
   }
-  function open(toggler, target, closure) {
+  function open(toggler, target, onOpen, opened) {
     if (target.length !== 0) {
       data(toggler, "is-open", true);
-      closure ? closure(target, toggler) : target.forEach((target2) => target2.style.display = "block");
+      onOpen ? onOpen(target, toggler) : target.forEach((target2) => target2.style.display = "block");
+      opened && opened(target, toggler);
     }
   }
-  function close(toggler, target, closure) {
+  function close(toggler, target, onClose, closed) {
     if (target.length !== 0) {
       data(toggler, "is-open", false);
-      closure ? closure(target, toggler) : target.forEach((target2) => target2.style.display = "none");
+      onClose ? onClose(target, toggler) : target.forEach((target2) => target2.style.display = "none");
+      closed && closed(target, toggler);
     }
   }
 

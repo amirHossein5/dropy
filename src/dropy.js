@@ -21,7 +21,7 @@ export default function dropy(togglerSelector, optionsParam) {
 
         setDataByScreens(toggler);
 
-        init(toggler, target, options?.onInit);
+        init(toggler, target, options?.onInit, options?.inited);
 
         toggler.addEventListener('click', (e) => {
             let toggler = e.currentTarget;
@@ -30,12 +30,12 @@ export default function dropy(togglerSelector, optionsParam) {
             if (options.closeOnAnotherTogglerClicked && !$.data(toggler, 'is-open')) {
                 allTogglers
                     .filter((i) => i !== toggler && $.data(i, 'is-open'))
-                    .forEach((toggler) => close(toggler, allTargets, options?.onClose));
+                    .forEach((toggler) => close(toggler, allTargets, options?.onClose, options?.closed));
             }
 
             $.data(toggler, 'is-open')
-                ? close(toggler, target, options?.onClose)
-                : open(toggler, target, options?.onOpen);
+                ? close(toggler, target, options?.onClose, options?.closed)
+                : open(toggler, target, options?.onOpen, options?.opened);
         });
     });
 
@@ -46,7 +46,7 @@ export default function dropy(togglerSelector, optionsParam) {
             if ([...$.parents(e.target), e.target].filter((i) => wantedList.includes(i)).length === 0) {
                 allTogglers
                     .filter((toggler) => $.data(toggler, 'is-open'))
-                    .forEach((toggler) => close(toggler, allTargets, options?.onClose));
+                    .forEach((toggler) => close(toggler, allTargets, options?.onClose, options?.closed));
             }
         });
     }
@@ -98,31 +98,37 @@ export function getTargetsOf(toggler) {
  * Init targets,
  * @param  {HTMLElement} toggler
  * @param  {array} target
- * @param  {null|function} closure
+ * @param  {null|function} onInit
+ * @param  {null|function} inited
  * @return {null}
  */
-function init(toggler, target, closure) {
+function init(toggler, target, onInit, inited) {
     let isOpen = $.data(toggler, 'is-open');
 
-    closure
-        ? closure(target, toggler, isOpen)
+    onInit
+        ? onInit(target, toggler, isOpen)
         : isOpen
         ? target.forEach((target) => (target.style.display = 'block'))
         : target.forEach((target) => (target.style.display = 'none'));
+
+    inited && inited(target, toggler, isOpen);
 }
 
 /**
  * Opens targets,
  * @param  {HTMLElement} toggler
  * @param  {array} target
- * @param  {null|function} closure
+ * @param  {null|function} onOpen
+ * @param  {null|function} opened
  * @return {null}
  */
-export function open(toggler, target, closure) {
+export function open(toggler, target, onOpen, opened) {
     if (target.length !== 0) {
         $.data(toggler, 'is-open', true);
 
-        closure ? closure(target, toggler) : target.forEach((target) => (target.style.display = 'block'));
+        onOpen ? onOpen(target, toggler) : target.forEach((target) => (target.style.display = 'block'));
+
+        opened && opened(target, toggler);
     }
 }
 
@@ -130,13 +136,16 @@ export function open(toggler, target, closure) {
  * Closes the targets.
  * @param  {HTMLElement} toggler
  * @param  {array} target
- * @param  {null|function} closure
+ * @param  {null|function} onClose
+ * @param  {null|function} closed
  * @return {null}
  */
-export function close(toggler, target, closure) {
+export function close(toggler, target, onClose, closed) {
     if (target.length !== 0) {
         $.data(toggler, 'is-open', false);
 
-        closure ? closure(target, toggler) : target.forEach((target) => (target.style.display = 'none'));
+        onClose ? onClose(target, toggler) : target.forEach((target) => (target.style.display = 'none'));
+
+        closed && closed(target, toggler);
     }
 }

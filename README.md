@@ -2,7 +2,7 @@ Small package for togglling everything on everywhere.
 
 <br/>
 
-*This README may has something unreleased.* [See last release Docs](https://github.com/amirHossein5/dropy/tree/v1.2.0)
+_This README may has something unreleased._ [See last release Docs](https://github.com/amirHossein5/dropy/tree/v1.2.0)
 
 ## Installation
 
@@ -59,15 +59,21 @@ dropy options and their defaults:
 
 ```js
 dropy(togglerSelector, {
-    onInit: (target, toggler, isOpen) => {},
+    onInit: (target, toggler, isOpen) => {}, // open/close target based on isOpen
     onOpen: (target, toggler) => {}, // opening target is your responsible
     onClose: (target, toggler) => {}, // closing target is your responsible
+
+    inited: (target, toggler, isOpen) => {},
+    opened: (target, toggler) => {},
+    closed: (target, toggler) => {},
+
     closeOnClickOut: true,
     closeOnAnotherTogglerClicked: true,
 });
 ```
 
 -   `onInit`: By default it will close/open target based on `data-is-open` on first load.
+-   `inited`, `opened`, `closed`: They call after `onInit`,`onOpen`,`onClose`.
 -   `closeOnClickOut`: when clicked out closes the target.
 -   `closeOnAnotherTogglerClicked`: closes the target when another **_related toggler_**(with same toggler selector) wants to be open.
 

@@ -39,16 +39,18 @@
   function getTargetsOf(toggler) {
     return data(toggler, "target") ? selectorAll(data(toggler, "target")) : siblings(toggler, "[toggler-target]");
   }
-  function open(toggler, target, closure) {
+  function open(toggler, target, onOpen, opened) {
     if (target.length !== 0) {
       data(toggler, "is-open", true);
-      closure ? closure(target, toggler) : target.forEach((target2) => target2.style.display = "block");
+      onOpen ? onOpen(target, toggler) : target.forEach((target2) => target2.style.display = "block");
+      opened && opened(target, toggler);
     }
   }
-  function close(toggler, target, closure) {
+  function close(toggler, target, onClose, closed) {
     if (target.length !== 0) {
       data(toggler, "is-open", false);
-      closure ? closure(target, toggler) : target.forEach((target2) => target2.style.display = "none");
+      onClose ? onClose(target, toggler) : target.forEach((target2) => target2.style.display = "none");
+      closed && closed(target, toggler);
     }
   }
 
