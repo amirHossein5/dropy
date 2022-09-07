@@ -1,4 +1,11 @@
 (() => {
+  var __defProp = Object.defineProperty;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __publicField = (obj, key, value) => {
+    __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+    return value;
+  };
+
   // src/helpers.js
   function selectorAll(selector) {
     return document.querySelectorAll(selector);
@@ -30,14 +37,15 @@
   }
 
   // src/dropy.js
-  function dropy(togglerSelector, optionsParam) {
-    let options = setUp(optionsParam);
+  function dropy2(togglerSelector, optionsParam) {
+    let options = getConfig(optionsParam);
     let allTogglers = [...selectorAll(togglerSelector)];
     let allTargets = [];
     allTogglers.forEach((toggler) => {
       let target = getTargetsOf(toggler);
       allTargets = [...allTargets, ...getTargetsOf(toggler)];
       data(toggler, "is-open") === true ? data(toggler, "is-open", true) : data(toggler, "is-open", false);
+      setDataByScreens(toggler);
       init(toggler, target, options?.onInit);
       toggler.addEventListener("click", (e) => {
         let toggler2 = e.currentTarget;
@@ -69,7 +77,7 @@
       });
     });
   }
-  function setUp(options) {
+  function getConfig(options) {
     return {
       closeOnClickOut: true,
       closeOnAnotherTogglerClicked: true,
@@ -96,7 +104,68 @@
     }
   }
 
+  // src/screens.js
+  function setDataByScreens(toggler) {
+    setAttributes(toggler);
+    if (data(toggler, "open") === null) {
+      return;
+    }
+    let lastMatchedScreen = getLastMatchedScreen(toggler, Object.entries(getConfig2()));
+    lastMatchedScreen === void 0 ? data(toggler, "is-open", data(toggler, "open")) : data(toggler, "is-open", data(toggler, `${lastMatchedScreen}-open`));
+  }
+  function getConfig2() {
+    return dropy.config.get()?.screens ?? defaultConfig();
+  }
+  function windowOnResize() {
+    window.addEventListener("resize", () => {
+      selectorAll("[data-is-open][data-open]").forEach((toggler) => {
+        setDataByScreens(toggler);
+        data(toggler, "is-open") ? open(toggler, getTargetsOf(toggler)) : close(toggler, getTargetsOf(toggler));
+      });
+    });
+  }
+  function defaultConfig() {
+    return {
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px"
+    };
+  }
+  function setAttributes(toggler) {
+    if (data(toggler, "open") === true || data(toggler, "open") === false) {
+      return;
+    }
+    for (let [key, value] of Object.entries(getConfig2())) {
+      data(toggler, `${key}-open`) !== null && data(toggler, "open", false);
+    }
+  }
+  function getLastMatchedScreen(element, screens) {
+    let sortedScreens = screens.sort(([, a], [, b]) => parseInt(a.replace("px", "")) - parseInt(b.replace("px", "")));
+    let matchedScreens = [];
+    for (let [key, value] of sortedScreens) {
+      if (data(element, `${key}-open`) === null) {
+        continue;
+      }
+      if (window.matchMedia(`(min-width: ${value})`).matches) {
+        matchedScreens = [...matchedScreens, key];
+      }
+    }
+    return matchedScreens.at(-1);
+  }
+
   // builds/cdn.js
+  windowOnResize();
   dropyListeners();
-  window.dropy = dropy;
+  var _a;
+  dropy2.__proto__.config = (_a = class {
+    static set(options) {
+      this.options = options;
+    }
+    static get() {
+      return this.options;
+    }
+  }, __publicField(_a, "screens", defaultConfig()), _a);
+  window.dropy = dropy2;
 })();

@@ -1,4 +1,5 @@
 import * as $ from './helpers';
+import setDataByScreens from './screens';
 
 /**
  * Toggles elements.
@@ -7,7 +8,7 @@ import * as $ from './helpers';
  * @return {null}
  */
 export default function dropy(togglerSelector, optionsParam) {
-    let options = setUp(optionsParam);
+    let options = getConfig(optionsParam);
     let allTogglers = [...$.selectorAll(togglerSelector)];
     let allTargets = [];
 
@@ -17,6 +18,8 @@ export default function dropy(togglerSelector, optionsParam) {
         allTargets = [...allTargets, ...getTargetsOf(toggler)];
 
         $.data(toggler, 'is-open') === true ? $.data(toggler, 'is-open', true) : $.data(toggler, 'is-open', false);
+
+        setDataByScreens(toggler);
 
         init(toggler, target, options?.onInit);
 
@@ -72,7 +75,7 @@ export function dropyListeners() {
  * @param {object} options
  * @return {object}
  */
-function setUp(options) {
+function getConfig(options) {
     return {
         closeOnClickOut: true,
         closeOnAnotherTogglerClicked: true,
@@ -85,7 +88,7 @@ function setUp(options) {
  * @param  {HTMLElement} toggler
  * @return {NodeList|array}
  */
-function getTargetsOf(toggler) {
+export function getTargetsOf(toggler) {
     return $.data(toggler, 'target')
         ? $.selectorAll($.data(toggler, 'target'))
         : $.siblings(toggler, '[toggler-target]');
@@ -115,7 +118,7 @@ function init(toggler, target, closure) {
  * @param  {null|function} closure
  * @return {null}
  */
-function open(toggler, target, closure) {
+export function open(toggler, target, closure) {
     if (target.length !== 0) {
         $.data(toggler, 'is-open', true);
 
@@ -130,7 +133,7 @@ function open(toggler, target, closure) {
  * @param  {null|function} closure
  * @return {null}
  */
-function close(toggler, target, closure) {
+export function close(toggler, target, closure) {
     if (target.length !== 0) {
         $.data(toggler, 'is-open', false);
 
