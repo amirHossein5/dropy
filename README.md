@@ -2,7 +2,7 @@ Small package for togglling everything on everywhere.
 
 <br/>
 
-_This README may has something unreleased._ [See last release Docs](https://github.com/amirHossein5/dropy/tree/v1.2.0)
+_This README may has something unreleased._ [See last release Docs](https://github.com/amirHossein5/dropy/tree/v1.3.0)
 
 ## Installation
 
