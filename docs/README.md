@@ -189,3 +189,5 @@ document.dispatchEvent(
     })
 );
 ```
+
+## LICENCE
