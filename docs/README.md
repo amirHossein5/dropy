@@ -190,4 +190,6 @@ document.dispatchEvent(
 );
 ```
 
-## LICENCE
+## Licence
+
+[LICENCE](https://github.com/amirHossein5/dropy/blob/main/LICENCE)
