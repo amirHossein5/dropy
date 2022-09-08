@@ -9,13 +9,13 @@ _This README may has something unreleased._ [See last release Docs](https://gith
 ### CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy/dist/dropy.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy@1/dist/dropy.min.js"></script>
 ```
 
 CDN that includes all of the modules(e.g, events):
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy/dist/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy@1/dist/cdn.min.js"></script>
 ```
 
 Finally:
@@ -149,7 +149,7 @@ dropy.config.set({
 If you didn't include all modules:
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy/dist/dropyListeners.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy@1/dist/dropyListeners.min.js"></script>
 ```
 
 Event `dropy.open` for opening, and `dropy.close` for closing targets:
