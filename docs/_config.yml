@@ -1,5 +1,2 @@
 # build settings
-markdown: kramdown
-theme: minima
-minima:
-  skin: dark
+theme: Hack
