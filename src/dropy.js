@@ -27,15 +27,25 @@ export default function dropy(togglerSelector, optionsParam) {
             let toggler = e.currentTarget;
             let target = getTargetsOf(toggler);
 
-            if (options.closeOnAnotherTogglerClicked && !$.data(toggler, 'is-open')) {
-                allTogglers
-                    .filter((i) => i !== toggler && $.data(i, 'is-open'))
-                    .forEach((toggler) => close(toggler, allTargets, options?.onClose, options?.closed));
-            }
+            if (!options.syncTogglers) {
+                if (options.closeOnAnotherTogglerClicked && !$.data(toggler, 'is-open')) {
+                    allTogglers
+                        .filter((i) => i !== toggler && $.data(i, 'is-open'))
+                        .forEach((toggler) => close(toggler, allTargets, options?.onClose, options?.closed));
+                }
 
-            $.data(toggler, 'is-open')
-                ? close(toggler, target, options?.onClose, options?.closed)
-                : open(toggler, target, options?.onOpen, options?.opened);
+                $.data(toggler, 'is-open')
+                    ? close(toggler, target, options?.onClose, options?.closed)
+                    : open(toggler, target, options?.onOpen, options?.opened);
+            } else {
+                let currentTogglerAttr = $.data(toggler, 'is-open');
+
+                allTogglers.forEach((toggler) =>
+                    currentTogglerAttr
+                        ? close(toggler, target, options?.onClose, options?.closed)
+                        : open(toggler, target, options?.onOpen, options?.opened)
+                );
+            }
         });
     });
 
@@ -79,6 +89,7 @@ function getConfig(options) {
     return {
         closeOnClickOut: true,
         closeOnAnotherTogglerClicked: true,
+        syncTogglers: false,
         ...options,
     };
 }

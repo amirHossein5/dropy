@@ -50,10 +50,17 @@
       toggler.addEventListener("click", (e) => {
         let toggler2 = e.currentTarget;
         let target2 = getTargetsOf(toggler2);
-        if (options.closeOnAnotherTogglerClicked && !data(toggler2, "is-open")) {
-          allTogglers.filter((i) => i !== toggler2 && data(i, "is-open")).forEach((toggler3) => close(toggler3, allTargets, options?.onClose, options?.closed));
+        if (!options.syncTogglers) {
+          if (options.closeOnAnotherTogglerClicked && !data(toggler2, "is-open")) {
+            allTogglers.filter((i) => i !== toggler2 && data(i, "is-open")).forEach((toggler3) => close(toggler3, allTargets, options?.onClose, options?.closed));
+          }
+          data(toggler2, "is-open") ? close(toggler2, target2, options?.onClose, options?.closed) : open(toggler2, target2, options?.onOpen, options?.opened);
+        } else {
+          let currentTogglerAttr = data(toggler2, "is-open");
+          allTogglers.forEach(
+            (toggler3) => currentTogglerAttr ? close(toggler3, target2, options?.onClose, options?.closed) : open(toggler3, target2, options?.onOpen, options?.opened)
+          );
         }
-        data(toggler2, "is-open") ? close(toggler2, target2, options?.onClose, options?.closed) : open(toggler2, target2, options?.onOpen, options?.opened);
       });
     });
     if (options.closeOnClickOut === true) {
@@ -69,6 +76,7 @@
     return {
       closeOnClickOut: true,
       closeOnAnotherTogglerClicked: true,
+      syncTogglers: false,
       ...options
     };
   }
