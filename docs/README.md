@@ -14,7 +14,7 @@ CDN that includes all of the modules(e.g, events):
 <script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy@1/dist/cdn.min.js"></script>
 ```
 
-Finally:
+Finally specify toggler selector:
 
 ```html
 <script>
@@ -22,9 +22,11 @@ Finally:
 </script>
 ```
 
+> _toggler_ is something that closes/opens _target(s)_.
+
 ## Usage
 
-There are two ways to define the target, first: append `toggler-target` attribute on the sibling of toggler,
+After you specified the toggler selector, is time to specify the target. There are two ways to define the target, first: adding `toggler-target` attribute on the sibling of toggler,
 
 ```html
 <section>
@@ -43,7 +45,7 @@ Or you can specify target via `data-target`:
 <section id="target">will be toggle</section>
 ```
 
-if you want to on first load target be open add attribute `data-open`:
+if you want to target be open on the first load, add `data-open=true` to toggler:
 
 ```html
 <button toggler data-open="true">toggle it!</button>
@@ -55,9 +57,9 @@ dropy options and their defaults:
 
 ```js
 dropy(togglerSelector, {
-    onInit: (target, toggler, isOpen) => {}, // open/close target based on isOpen
-    onOpen: (target, toggler) => {}, // opening target is your responsible
-    onClose: (target, toggler) => {}, // closing target is your responsible
+    onInit: (target, toggler, isOpen) => {}, // opening/closing target(s) based on isOpen
+    onOpen: (target, toggler) => {}, // opening target(s) is your responsible
+    onClose: (target, toggler) => {}, // closing target(s) is your responsible
 
     inited: (target, toggler, isOpen) => {},
     opened: (target, toggler) => {},
@@ -70,8 +72,84 @@ dropy(togglerSelector, {
 
 -   `onInit`: By default it will close/open target based on `data-is-open` on first load.
 -   `inited`, `opened`, `closed`: They call after `onInit`,`onOpen`,`onClose`.
--   `closeOnClickOut`: when clicked out closes the target.
--   `closeOnAnotherTogglerClicked`: closes the target when another **_related toggler_**(with same toggler selector) wants to be open.
+-   `closeOnClickOut`: When clicked out closes the target.
+-   `closeOnAnotherTogglerClicked`: Closes the target, when another **_related toggler(with same toggler selector)_** wants to be open. _Read more at [scopes](#Scopes)_.
+
+## Toggler Scopes
+
+When you are using `dropy('[toggler]')`, the selector of `[toggler]` is the scope of dropy. It means when you are using `closeOnAnotherTogglerClicked: true`, it just affects on togglers which have same selector of(`[toggler]`).
+
+
+It is useful when you are using dropy for different parts. For example when you want to use two different accordions, and if you use `closeOnAnotherTogglerClicked: true` ,and with same toggler selector of `accordion-toggler`:
+
+```html
+<section>
+    <!-- first accordion -->
+    <section>
+        <button accordion-toggler>open first</button>
+        <section toggler-target>first text</section>
+    </section>
+    <section>
+        <button accordion-toggler>open second</button>
+        <section toggler-target>second text</section>
+    </section>
+</section>
+
+<section>
+    <!-- second accordion -->
+    <section>
+        <button accordion-toggler>open first</button>
+        <section toggler-target>first text</section>
+    </section>
+    <section>
+        <button accordion-toggler>open second</button>
+        <section toggler-target>second text</section>
+    </section>
+</section>
+
+<script>
+    dropy('[accordion-toggler]', {
+        closeOnClickOut: false,
+    });
+</script>
+```
+
+The problem here is, when an first accordion item is open, it will be close by second accordion buttons, because the togglers are in the same scope and `closeOnAnotherTogglerClicked` just affects on this scope. The solution is to defind different scopes for different accordions:
+
+```html
+<section>
+    <!-- first accordion -->
+    <section>
+        <button first-accordion-toggler>open first</button>
+        <section toggler-target>first text</section>
+    </section>
+    <section>
+        <button first-accordion-toggler>open second</button>
+        <section toggler-target>second text</section>
+    </section>
+</section>
+
+<section>
+    <!-- second accordion -->
+    <section>
+        <button second-accordion-toggler>open first</button>
+        <section toggler-target>first text</section>
+    </section>
+    <section>
+        <button second-accordion-toggler>open second</button>
+        <section toggler-target>second text</section>
+    </section>
+</section>
+
+<script>
+    dropy('[first-accordion-toggler]', {
+        closeOnClickOut: false,
+    });
+    dropy('[second-accordion-toggler]', {
+        closeOnClickOut: false,
+    });
+</script>
+```
 
 ## Responsive Design
 
