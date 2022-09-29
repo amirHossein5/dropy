@@ -81,8 +81,9 @@ dropy(togglerSelector, {
 
 ## Toggler Scopes
 
-When you are using `dropy('[toggler]')`, the selector of `[toggler]` is the scope of dropy. It means when you are using `closeOnAnotherTogglerClicked: true`, it just affects on togglers which have same selector of(`[toggler]`).
+> :warning: When using this option, `closeOnAnotherTogglerClicked` option won't affect anymore.
 
+When you are using `dropy('[toggler]')`, the selector of `[toggler]` is the scope of dropy. It means when you are using `closeOnAnotherTogglerClicked: true`, it just affects on togglers which have same selector of(`[toggler]`).
 
 It is useful when you are using dropy for different parts. For example when you want to use two different accordions, and if you use `closeOnAnotherTogglerClicked: true` ,and with same toggler selector of `accordion-toggler`:
 
@@ -172,7 +173,7 @@ For example this simple menu which has two togglers:
 <script>
     dropy('[menu-toggler]', {
         syncTogglers: true,
-    })
+    });
 </script>
 ```
 
