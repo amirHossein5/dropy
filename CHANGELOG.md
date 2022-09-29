@@ -6,7 +6,6 @@
 
 -   `syncTogglers` option.
 
-
 ## [v1.3.0](https://github.com/amirHossein5/dropy/compare/v1.2.0...v1.3.0)
 
 ### Added
