@@ -22,6 +22,8 @@ Finally specify toggler selector:
 </script>
 ```
 
+Dropy toggles target element(s) based on `data-is-open` which located on toggler.
+
 > _toggler_ is something that closes/opens _target(s)_.
 
 ## Usage
@@ -67,13 +69,15 @@ dropy(togglerSelector, {
 
     closeOnClickOut: true,
     closeOnAnotherTogglerClicked: true,
+    syncTogglers: false,
 });
 ```
 
 -   `onInit`: By default it will close/open target based on `data-is-open` on first load.
 -   `inited`, `opened`, `closed`: They call after `onInit`,`onOpen`,`onClose`.
 -   `closeOnClickOut`: When clicked out closes the target.
--   `closeOnAnotherTogglerClicked`: Closes the target, when another **_related toggler(with same toggler selector)_** wants to be open. _Read more at [scopes](#Scopes)_.
+-   `closeOnAnotherTogglerClicked`: Closes the target, when another **_related toggler(with same toggler selector)_** wants to be open. Read more at [scopes](#Scopes).
+-   `syncTargets`: Syncs togglers with each other(when closes/opens). Read more at [Syncing Togglers](#syncing-togglers).
 
 ## Toggler Scopes
 
@@ -150,6 +154,29 @@ The problem here is, when an first accordion item is open, it will be close by s
     });
 </script>
 ```
+
+## Syncing Togglers
+
+When a toggler is being open/close, another togglers will also become open/close, it's useful when you want to keep sync togglers with eachother.
+
+For example this simple menu which has two togglers:
+
+```html
+<button menu-toggler data-target="#menu">opens the menu</button> ...
+
+<section id="menu">
+    ...
+    <button menu-toggler data-target="#menu">closes the menu</button>
+</section>
+
+<script>
+    dropy('[menu-toggler]', {
+        syncTogglers: true,
+    })
+</script>
+```
+
+When menu becomes open, the `data-is-open` attribute of button which closes the menu, becomes sync(true) with open button. and vice versa, when closing menu with close button, the open button will becomes sync(false) with close button.
 
 ## Responsive Design
 
