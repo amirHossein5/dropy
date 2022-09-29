@@ -22,11 +22,13 @@ Finally specify toggler selector:
 </script>
 ```
 
+Dropy toggles target element(s) based on `data-is-open` which located on toggler.
+
 > _toggler_ is something that closes/opens _target(s)_.
 
 ## Usage
 
-After you specified the toggler selector, is time to specify the target. There are two ways to define the target, first: adding `toggler-target` attribute on the sibling of toggler,
+After you specified the toggler selector, it's time to specify the target. There are two ways to define the target, first: adding `toggler-target` attribute on the sibling of toggler,
 
 ```html
 <section>
@@ -45,7 +47,7 @@ Or you can specify target via `data-target`:
 <section id="target">will be toggle</section>
 ```
 
-if you want to target be open on the first load, add `data-open=true` to toggler:
+If you want to target be open on the first load, add `data-open=true` to toggler:
 
 ```html
 <button toggler data-open="true">toggle it!</button>
@@ -67,54 +69,21 @@ dropy(togglerSelector, {
 
     closeOnClickOut: true,
     closeOnAnotherTogglerClicked: true,
+    syncTogglers: false,
 });
 ```
 
 -   `onInit`: By default it will close/open target based on `data-is-open` on first load.
--   `inited`, `opened`, `closed`: They call after `onInit`,`onOpen`,`onClose`.
+-   `inited`, `opened`, `closed`: They will be call after `onInit`,`onOpen`,`onClose`.
 -   `closeOnClickOut`: When clicked out closes the target.
--   `closeOnAnotherTogglerClicked`: Closes the target, when another **_related toggler(with same toggler selector)_** wants to be open. _Read more at [scopes](#Scopes)_.
+-   `closeOnAnotherTogglerClicked`: Closes the target, when another **_related toggler(with same toggler selector)_** wants to be open. Read More at [scopes](#dropy-scopes).
+-   `syncTogglers`: Syncs togglers with each other(when closes/opens). Read more at [Syncing Togglers](#syncing-togglers).
 
-## Toggler Scopes
+## Dropy Scopes
 
 When you are using `dropy('[toggler]')`, the selector of `[toggler]` is the scope of dropy. It means when you are using `closeOnAnotherTogglerClicked: true`, it just affects on togglers which have same selector of(`[toggler]`).
 
-
-It is useful when you are using dropy for different parts. For example when you want to use two different accordions, and if you use `closeOnAnotherTogglerClicked: true` ,and with same toggler selector of `accordion-toggler`:
-
-```html
-<section>
-    <!-- first accordion -->
-    <section>
-        <button accordion-toggler>open first</button>
-        <section toggler-target>first text</section>
-    </section>
-    <section>
-        <button accordion-toggler>open second</button>
-        <section toggler-target>second text</section>
-    </section>
-</section>
-
-<section>
-    <!-- second accordion -->
-    <section>
-        <button accordion-toggler>open first</button>
-        <section toggler-target>first text</section>
-    </section>
-    <section>
-        <button accordion-toggler>open second</button>
-        <section toggler-target>second text</section>
-    </section>
-</section>
-
-<script>
-    dropy('[accordion-toggler]', {
-        closeOnClickOut: false,
-    });
-</script>
-```
-
-The problem here is, when an first accordion item is open, it will be close by second accordion buttons, because the togglers are in the same scope and `closeOnAnotherTogglerClicked` just affects on this scope. The solution is to defind different scopes for different accordions:
+For example when you want to use two different accordions with same toggler selector of `dropy('[accordion-toggler]')`, when an first accordion item is open, it can be close by second accordion buttons, because the togglers are in the same scope and `closeOnAnotherTogglerClicked` just affects on this scope. So it is better to use different scopes for different parts:
 
 ```html
 <section>
@@ -150,6 +119,31 @@ The problem here is, when an first accordion item is open, it will be close by s
     });
 </script>
 ```
+
+## Syncing Togglers
+
+> :warning: When using this option, `closeOnAnotherTogglerClicked` option won't affect anymore.
+
+When a toggler is being open/close, another togglers will also become open/close, it's useful when you want to keep sync togglers with eachother.
+
+For example this simple menu which has two togglers:
+
+```html
+<button menu-toggler data-target="#menu">opens the menu</button> ...
+
+<section id="menu">
+    ...
+    <button menu-toggler data-target="#menu">closes the menu</button>
+</section>
+
+<script>
+    dropy('[menu-toggler]', {
+        syncTogglers: true,
+    });
+</script>
+```
+
+When menu becomes open, the `data-is-open` attribute of button which closes the menu, becomes sync(true) with open button. and vice versa, when closing menu with close button, the open button will becomes sync(false) with close button.
 
 ## Responsive Design
 
