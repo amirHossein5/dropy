@@ -122,7 +122,7 @@ For example when you want to use two different accordions with same toggler sele
 
 ## Syncing Togglers
 
-> :warning: When using this option, `closeOnAnotherTogglerClicked` option won't affect anymore.
+> **When using this option, `closeOnAnotherTogglerClicked` option won't affect anymore.**
 
 When a toggler is being open/close, another togglers will also become open/close, it's useful when you want to keep sync togglers with eachother.
 
