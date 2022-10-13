@@ -7,6 +7,7 @@ Small package for toggling everything on everywhere.
 ```html
 <script src="https://cdn.jsdelivr.net/gh/amirhossein5/dropy@1/dist/dropy.min.js"></script>
 ```
+
 CDN that includes all of the modules(e.g, events):
 
 ```html
