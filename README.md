@@ -2,7 +2,7 @@ Small package for togglling everything on everywhere.
 
 ## Documentation
 
-[amirHossein5.github.io/dropy](https://amirHossein5.github.io/dropy)
+Docs can be found [here](https://amirstr.github.io/dropy).
 
 ## Licence
 
