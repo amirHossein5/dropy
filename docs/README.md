@@ -5,13 +5,13 @@ Small package for toggling everything on everywhere.
 ### CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/amirstr/dropy@1/dist/dropy.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/amirHossein5/dropy@1/dist/dropy.min.js"></script>
 ```
 
 CDN that includes all of the modules(e.g, events):
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/amirstr/dropy@1/dist/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/amirHossein5/dropy@1/dist/cdn.min.js"></script>
 ```
 
 Finally specify toggler selector:
@@ -217,7 +217,7 @@ dropy.config.set({
 If you didn't include all modules:
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/amirstr/dropy@1/dist/dropyListeners.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/amirHossein5/dropy@1/dist/dropyListeners.min.js"></script>
 ```
 
 Event `dropy.open` for opening, and `dropy.close` for closing targets:
